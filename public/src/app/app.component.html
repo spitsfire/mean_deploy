@@ -1,0 +1,44 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+  <div id="top-content" class="container">
+    <h1 class="display-4">New Task</h1>
+    <form (submit)="onSubmit()">
+      {{ newTask | json }}
+      <div class="form-group">
+        <label for="newTask.title">Title</label>
+        <input class="form-control form-control-sm w-50" type="text" name="newTask.title" [(ngModel)]="newTask.title">
+      </div>
+      <div class="form-group">
+        <label for="newTask.description">Description</label>
+        <input class="form-control form-control-sm w-50" type="text" name="newTask.description" [(ngModel)]="newTask.description">
+      </div>
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+  </div>
+  <div class="row">
+    <div *ngIf="tasks" class="col-6">
+      <h3>All Tasks</h3>
+      <div *ngFor="let task of tasks" class="container">
+        <h5>{{task.title}}</h5>
+        <p class="lead">{{task.description}}</p>
+        <button (click)="getTaskFromService(task._id)" class="btn btn-sm btn-secondary">Edit</button>
+        <button (click)="deleteTaskFromService(task._id)" class="btn btn-sm btn-danger">Delete</button>
+      </div>
+    </div>
+    <div *ngIf="isClicked" class="col-6">
+      <h3>Edit Tasks</h3>
+      <form (submit)="onSubmit(editTask._id)">
+          {{ editTask | json }}
+          <div class="form-group">
+            <label for="editTask.title">Title</label>
+            <input class="form-control form-control-sm w-50" type="text" name="editTask.title" [(ngModel)]="editTask.title" value="editTask.title">
+          </div>
+          <div class="form-group">
+            <label for="editTask.description">Description</label>
+            <input class="form-control form-control-sm w-50" type="text" name="editTask.description" [(ngModel)]="editTask.description" value="editTask.title">
+          </div>
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+  </div>
+</div>
